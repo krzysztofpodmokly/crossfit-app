@@ -3,15 +3,14 @@ import Error from '../error/Error';
 
 class SignUp extends React.Component {
     state = {
-        'email': '',
-        'password': '',
-        'confirmPassword': '',
-        'firstname': '',
-        'lastname': ''
+        email: '',
+        password: '',
+        confirmPassword: '',
+        firstname: '',
+        lastname: ''
     }
 
     handleInputChange = (e) => {
-        // e.preventDefault();
         this.setState({
             [e.target.id]: e.target.value
         });
@@ -28,8 +27,8 @@ class SignUp extends React.Component {
 
         return (
             <div className="container">
+                <h5 className="grey-text text-darken-3">Register Account</h5>
                 <form onSubmit={this.onFormSubmit} className="white">
-                    <h5 className="grey-text text-darken-3">Register Account</h5>
                     <div className="input-field">
                         <label htmlFor="email">Email</label>
                         <input type="email" id="email" onChange={this.handleInputChange} autoComplete="off" />
@@ -39,7 +38,7 @@ class SignUp extends React.Component {
                         <input type="password" id="password" onChange={this.handleInputChange} autoComplete="off" />
                     </div>
                     <div className="input-field">
-                        <label htmlFor="password">Confirm Password</label>
+                        <label htmlFor="confirmPassword">Confirm Password</label>
                         <input type="password" id="confirmPassword" onChange={this.handleInputChange} autoComplete="off" />
                     </div>
                     <div className="input-field">
@@ -51,7 +50,7 @@ class SignUp extends React.Component {
                         <input type="text" id="lastname" onChange={this.handleInputChange} autoComplete="off" />
                     </div>
                     <div className="input-field">
-                        <button className="btn blue lighten-1">Create Account</button>
+                        <button className="btn red lighten-1 waves-effect waves-light">Create Account</button>
                         <div className="red-text center">
                             {error}
                         </div>

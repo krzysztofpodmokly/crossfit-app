@@ -6,6 +6,7 @@ import TrainingCreate from './trainings/TrainingCreate';
 import TrainingDetails from './trainings/TrainingDetails';
 import SignIn from './auth/SignIn';
 import SignUp from './auth/SignUp';
+import '../styles/styles.css';
 
 class App extends React.Component {
     render() {
