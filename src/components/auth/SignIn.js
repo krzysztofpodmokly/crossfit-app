@@ -1,4 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { signIn } from '../../store/actions/authActions';
+import { firebaseConnect } from 'react-redux-firebase';
+import { compose } from 'redux';
+import { Redirect } from 'react-router-dom';
 
 class SignIn extends React.Component {
     state = {
@@ -7,7 +12,6 @@ class SignIn extends React.Component {
     }
 
     handleInputChange = (e) => {
-        // e.preventDefault();
         this.setState({
             [e.target.id]: e.target.value
         });
@@ -15,10 +19,20 @@ class SignIn extends React.Component {
 
     onFormSubmit = (e) => {
         e.preventDefault();
-        console.log(this.state);
+        const { firebase } = this.props;
+        const credentials = { ...this.state };
+        const authData = {
+            firebase,
+            credentials
+        };
+
+        this.props.signIn(authData);
     }
 
     render() {
+        const { authError, auth } = this.props;
+        if (auth.uid) return <Redirect to="/" />
+
         return (
             <div className="container">
                 <h5 className="grey-text text-darken-3">Sign In</h5>
@@ -35,6 +49,9 @@ class SignIn extends React.Component {
                     </div>
                     <div className="input-field">
                         <button className="btn red lighten-1 waves-effect waves-light">Login</button>
+                        <div className="red-text center">
+                            { authError ? <p>{authError}</p> : null }
+                        </div>
                     </div>
                 </form>
             </div>
@@ -42,4 +59,20 @@ class SignIn extends React.Component {
     }
 }
 
-export default SignIn
+const mapStateToProps = (state, ownProps) => {
+    return {
+        authError: state.auth.authError,
+        auth: state.firebase.auth
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        signIn: (credentials) => dispatch(signIn(credentials))
+    }
+}
+
+export default compose(
+    firebaseConnect(),
+    connect(mapStateToProps, mapDispatchToProps)
+)(SignIn);
