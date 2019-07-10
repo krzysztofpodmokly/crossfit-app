@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 const TrainingItem = ({ training }) => {
     return (
@@ -10,8 +11,9 @@ const TrainingItem = ({ training }) => {
                     <i className="material-icons">add</i>
                 </button>
             </div>
-            <div className="card-content">
+            <div className="card-content grey-text text-darken-2">
                 <p>{training.content}</p>
+                <p>{moment(training.createdAt.toDate()).calendar()}</p>
             </div>
         </div>
     )

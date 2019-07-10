@@ -1,17 +1,24 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import SignedInLinks from './SignedInLinks';
 import SignedOutLinks from './SignedOutLinks';
 import { connect } from 'react-redux';
+import { firebaseConnect, isLoaded } from 'react-redux-firebase';
+import { compose } from 'redux';
 
-const Navbar = () => {
+
+const Navbar = ({ auth, profile }) => {
+    const links = auth.uid ? <SignedInLinks profile={profile} /> : <SignedOutLinks />;
+
+    // makes sure that proper auth status is fetched before showing links
+    const isLoadedContent = isLoaded(auth) ? links : '';
+
     return (
         <nav>
             <div className="nav-wrapper grey darken-2">
                 <div className="container">
                     <Link to="/" className="brand-logo">Logo</Link>
-                    <SignedInLinks />
-                    <SignedOutLinks />
+                    { isLoadedContent }                    
                 </div>
             </div>
         </nav>
@@ -19,10 +26,15 @@ const Navbar = () => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    console.log('NAVBAR => ', state.firebase);
+    
     return {
-        auth: state.firebase
+        auth: state.firebase.auth,
+        profile: state.firebase.profile // available due to rrfConfig object in index.js
     }
 }
 
-export default connect(mapStateToProps)(Navbar);
+
+export default compose(
+    firebaseConnect(),
+    connect(mapStateToProps)
+)(Navbar);

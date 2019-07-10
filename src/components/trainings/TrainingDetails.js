@@ -3,8 +3,12 @@ import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 import moment from 'moment';
+import Loader from '../layout/Loader';
+import { Redirect } from 'react-router-dom';
 
-const TrainingDetails = ({ training }) => {
+const TrainingDetails = ({ training, auth }) => {
+    if (!auth.uid) return <Redirect to="/signin" />
+
     if (training) {
         return (
             <div className="project-details container section">
@@ -22,21 +26,7 @@ const TrainingDetails = ({ training }) => {
         )
     } else {
         return (
-            <div className="container center spinner">
-                <div className="preloader-wrapper big active">
-                    <div className="spinner-layer spinner-white-only">
-                        <div className="circle-clipper left">
-                            <div className="circle"></div>
-                        </div>
-                        <div className="gap-patch">
-                            <div className="circle"></div>
-                        </div>
-                        <div className="circle-clipper right">
-                            <div className="circle"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <Loader />
         )
     }
 }
@@ -47,12 +37,10 @@ const mapStateToProps = (state, ownProps) => {
 
     // Make sure that all trening were loaded before looking for specific id
     const training = trainings ? trainings.find(training => training.id === id) : null;
-    
-    // const trainings = state.firestore.data.trainings;
-    // console.log(allTrainings.map(training => console.log(training)))
-    // const training = trainings ? trainings[id] : null
+   
     return {
-        training: training
+        training: training,
+        auth: state.firebase.auth
     }
 }
 

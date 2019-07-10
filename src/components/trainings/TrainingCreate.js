@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createTraining } from '../../store/actions/trainingActions';
+import { firebaseConnect } from 'react-redux-firebase';
+import { compose } from 'redux';
+import { Redirect } from 'react-router-dom';
 
 class TrainingCreate extends React.Component {
     state = {
@@ -19,9 +22,12 @@ class TrainingCreate extends React.Component {
         e.preventDefault();
         console.log(this.state);
         this.props.createTraining(this.state);
+        this.props.history.push('/'); // redirect to dashboard after new training is submitted
     }
 
     render() {
+        const { auth } = this.props;
+        if (!auth.uid) return <Redirect to="/signin" />
         return (
             <div className="container">
                 <h5 className="grey-text text-darken-3">Create Training</h5>
@@ -39,11 +45,17 @@ class TrainingCreate extends React.Component {
                         <textarea className="materialize-textarea" id="content" onChange={this.handleInputChange} />
                     </div>
                     <div className="input-field">
-                        <button className="btn red lighten-1 waves-effect waves-light">Login</button>
+                        <button className="btn red lighten-1 waves-effect waves-light">Create</button>
                     </div>
                 </form>
             </div>
         )
+    }
+}
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        auth: state.firebase.auth
     }
 }
 
@@ -53,5 +65,8 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(TrainingCreate);
+export default compose(
+    firebaseConnect(),
+    connect(mapStateToProps, mapDispatchToProps)
+)(TrainingCreate);
 

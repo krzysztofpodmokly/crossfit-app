@@ -1,5 +1,10 @@
 import React from 'react';
 import Error from '../error/Error';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { firebaseConnect } from 'react-redux-firebase';
+import { registerAccount } from '../../store/actions/authActions';
 
 class SignUp extends React.Component {
     state = {
@@ -19,11 +24,16 @@ class SignUp extends React.Component {
     onFormSubmit = (e) => {
         e.preventDefault();
         console.log(this.state);
+        const { registerAccount, firebase } = this.props;
+        registerAccount(this.state, firebase);
     }
 
     render() {
         const { password, confirmPassword } = this.state;
-        const error = password !== confirmPassword ? <Error /> : null;
+        // const error = password !== confirmPassword ? <Error /> : null;
+        const { auth, authError } = this.props;
+        
+        if (auth.uid) return <Redirect to="/" />
 
         return (
             <div className="container">
@@ -52,7 +62,7 @@ class SignUp extends React.Component {
                     <div className="input-field">
                         <button className="btn red lighten-1 waves-effect waves-light">Create Account</button>
                         <div className="red-text center">
-                            {error}
+                            { authError ? <p>{authError}</p> : null }
                         </div>
                     </div>
                 </form>
@@ -61,4 +71,20 @@ class SignUp extends React.Component {
     }
 }
 
-export default SignUp;
+const mapStateToProps = (state, ownProps) => {
+    return {
+        auth: state.firebase.auth,
+        authError: state.auth.authError
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        registerAccount: (newUser, firebase) => dispatch(registerAccount(newUser, firebase))
+    }
+}
+
+export default compose(
+    firebaseConnect(),
+    connect(mapStateToProps, mapDispatchToProps)
+)(SignUp);
