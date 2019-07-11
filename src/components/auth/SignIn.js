@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { signIn } from '../../store/actions/authActions';
-import { firebaseConnect } from 'react-redux-firebase';
+import { firebaseConnect, isEmpty, isLoaded } from 'react-redux-firebase';
 import { compose } from 'redux';
 import { Redirect } from 'react-router-dom';
 
@@ -31,12 +31,16 @@ class SignIn extends React.Component {
 
     render() {
         const { authError, auth } = this.props;
-        if (auth.uid) return <Redirect to="/" />
+        if (!isLoaded(auth)) { // if auth status is not yet fetched return nothing
+            return null
+        }
 
+        if (auth.uid) return <Redirect to="/" />
+        
         return (
             <div className="container">
-                <h5 className="grey-text text-darken-3">Sign In</h5>
                 <form onSubmit={this.onFormSubmit} className="white">
+                    <h5 className="grey-text text-darken-2">Sign In</h5>
                     <div className="input-field">
                         <i className="material-icons prefix grey-text custom-icons">email</i>
                         <label htmlFor="email">Email</label>

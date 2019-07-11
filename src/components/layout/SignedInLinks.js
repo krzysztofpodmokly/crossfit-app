@@ -7,7 +7,7 @@ import { signOut } from '../../store/actions/authActions';
 
 const SignedInLinks = ({ signOut, firebase, profile }) => {
     return (
-        <ul className="right hide-on-small-and-down">
+        <ul className="right">
             <li><NavLink to="/create" className="">New Training</NavLink></li>
             <li><NavLink to="/" className="waves-effect waves-light btn" onClick={() => signOut(firebase)}>Log Out</NavLink></li>
             <li><NavLink to="/" className="btn btn-floating red lighten-1">{profile.initials}</NavLink></li>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import SignedInLinks from './SignedInLinks';
 import SignedOutLinks from './SignedOutLinks';
 import { connect } from 'react-redux';
@@ -17,8 +17,16 @@ const Navbar = ({ auth, profile }) => {
         <nav>
             <div className="nav-wrapper grey darken-2">
                 <div className="container">
-                    <Link to="/" className="brand-logo">Logo</Link>
-                    { isLoadedContent }                    
+                    <div className="row">
+                        <div className="col s3 m3">
+                            <Link to="/">
+                                <i className="material-icons">all_inclusive</i>
+                            </Link>
+                        </div>
+                        <div className="col s9 m9">
+                            { isLoadedContent }                    
+                        </div>
+                    </div>
                 </div>
             </div>
         </nav>

@@ -37,8 +37,8 @@ class SignUp extends React.Component {
 
         return (
             <div className="container">
-                <h5 className="grey-text text-darken-3">Register Account</h5>
                 <form onSubmit={this.onFormSubmit} className="white">
+                    <h5 className="grey-text text-darken-2">Register Account</h5>
                     <div className="input-field">
                         <label htmlFor="email">Email</label>
                         <input type="email" id="email" onChange={this.handleInputChange} autoComplete="off" />
