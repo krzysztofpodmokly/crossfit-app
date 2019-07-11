@@ -5,17 +5,23 @@ import { firebaseConnect } from 'react-redux-firebase';
 import { compose } from 'redux';
 import { Redirect } from 'react-router-dom';
 
+import WarmUp from './types/WarmUp';
+import ForWeight from './types/ForWeight';
+import Metcon from './types/Metcon';
+import Gymnastics from './types/Gymnastics';
+import Extra from './types/Extra';
+
 class TrainingCreate extends React.Component {
     state = {
         title: '',
         description: '',
         img: '',
-        contents: [],
+        warmup: [],
         formErrors: {
             title: '',
             description: '',
             img: '',
-            contents: []
+            warmup: []
         }
     }
 
@@ -60,31 +66,31 @@ class TrainingCreate extends React.Component {
     }
 
     handleInputContentChange = (e, index) => {
-        // this.state.contents[index] = e.target.value; // To be improved!
+        this.state.warmup[index] = e.target.value; // To be improved!
         
-        let contents = [ ...this.state.contents];
-        contents[index] = !contents[index];
-        this.setState({
-            contents
-        })
+        // let warmup = [ ...this.state.warmup];
+        // warmup[index] = !warmup[index];
+        // this.setState({
+        //     warmup
+        // })
         
         // set changed state
         this.setState({
-            contents: this.state.contents
+            warmup: this.state.warmup
         })
     }
 
     handleAddInput = (e) => {
         e.preventDefault();
         this.setState({
-            contents: [...this.state.contents, ""]
+            warmup: [...this.state.warmup, ""]
         })
     }
     
     handleInputRemove = (index) => {
-        this.state.contents.splice(index, 1); // remove input from the array
+        this.state.warmup.splice(index, 1); // remove input from the array
         this.setState({
-            contents: this.state.contents
+            warmup: this.state.warmup
         })
     }
 
@@ -98,14 +104,6 @@ class TrainingCreate extends React.Component {
 
         return valid;
     }
-
-    // validateContents = contents => {
-    //     let valid = true;
-    //     contents.forEach(content => {
-    //         return content.length > 0 && (valid = false)
-    //     })
-    //     return valid;
-    // }
     
     onFormSubmit = (e) => {
         e.preventDefault();
@@ -113,7 +111,7 @@ class TrainingCreate extends React.Component {
         if (this.validateForm(this.state.formErrors) && this.state.title !== "" && this.state.img !== "" && this.state.description !== "") {
             console.log('Form valid');
             this.props.createTraining(this.state);
-            this.props.history.push('/'); // redirect to dashboard after new training is submitted
+            // this.props.history.push('/'); // redirect to dashboard after new training is submitted
         } else {
             console.log('Invalid Form')
         }
@@ -124,21 +122,17 @@ class TrainingCreate extends React.Component {
         const { formErrors } = this.state;
         const { auth } = this.props;
         if (!auth.uid) return <Redirect to="/signin" />;
-        const inputList = this.state.contents.map((content, index) => {
+
+        // Rendering WarmUp list 
+        const warmUpList = this.state.warmup.map((warmup, index) => {
             return (
-                <div className="row" key={index}>
-                    <div className="col s6">
-                        <div className="input-field">
-                            <label htmlFor={`content-${index}`}>Content - {index + 1}</label>
-                            <input type="text" id={`content-${index}`} onChange={(e) => this.handleInputContentChange(e, index)} value={content} autoComplete="off" />
-                        </div>
-                    </div>
-                    <div className="col s6">
-                        <button className="btn-floating btn lighten-1 waves-effect waves-light indigo z-depth-2" onClick={() => this.handleInputRemove(index)}>
-                            <i className="material-icons text-white">delete</i>
-                        </button>
-                    </div>
-                </div>
+                <WarmUp 
+                    key={index}
+                    warmup={warmup}
+                    index={index}
+                    handleInputContentChange={this.handleInputContentChange}
+                    handleInputRemove={this.handleInputRemove}
+                />
             )
         });
 
@@ -161,7 +155,7 @@ class TrainingCreate extends React.Component {
                         <textarea className="materialize-textarea" id="description" onChange={this.handleInputChange} noValidate />
                         {formErrors.description.length > 0 && <span className="red-text">{formErrors.description}</span>}
                     </div>
-                    { inputList }
+                    { warmUpList }
                     <div className="row">
                         <div className="col s12 m3">
                             <div className="input-field">
