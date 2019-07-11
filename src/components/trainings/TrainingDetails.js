@@ -10,16 +10,27 @@ const TrainingDetails = ({ training, auth }) => {
     if (!auth.uid) return <Redirect to="/signin" />
 
     if (training) {
+        const trainingItems = training.contents.map((item, index) => {
+            return (
+                <li className="collection-item" key={index}>{item}</li>
+            )
+        })
         return (
-            <div className="project-details container section">
-                <div className="card">
-                    <div className="card-content">
-                        <span className="card-title">{training.title}</span>
-                        <p>{training.content}</p>
-                    </div>
-                    <div className="card-action grey lighten-4 grey-text">
-                        <div>Posted by {training.authorFirstName} {training.authorLastName}</div>
-                        <div>{moment(training.createdAt.toDate()).calendar()}</div>
+            <div className="row">
+                <div className="col s12">
+                    <div className="project-details container section">
+                        <div className="card">
+                            <div className="card-content">
+                                <span className="card-title">{training.title}</span>
+                                <ul className="collection">
+                                    {trainingItems}
+                                </ul>
+                            </div>
+                            <div className="card-action grey lighten-4 grey-text">
+                                <div>Posted by {training.authorFirstName} {training.authorLastName}</div>
+                                <div>{moment(training.createdAt.toDate()).calendar()}</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -37,7 +48,6 @@ const mapStateToProps = (state, ownProps) => {
 
     // Make sure that all trening were loaded before looking for specific id
     const training = trainings ? trainings.find(training => training.id === id) : null;
-   
     return {
         training: training,
         auth: state.firebase.auth
