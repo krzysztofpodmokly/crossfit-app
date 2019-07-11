@@ -10,7 +10,7 @@ const TrainingDetails = ({ training, auth }) => {
     if (!auth.uid) return <Redirect to="/signin" />
 
     if (training) {
-        const trainingItems = training.contents.map((item, index) => {
+        const trainingItems = training.warmup.map((item, index) => {
             return (
                 <li className="collection-item" key={index}>{item}</li>
             )

@@ -20,7 +20,7 @@ body {
         url('https://images.unsplash.com/photo-1517757814062-2a2c761218f8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=635&q=80');
     background-repeat: no-repeat;
     background-size: 100%;
-    background-position: 100%;
+    background-position: cover;
 }
 
 form {
