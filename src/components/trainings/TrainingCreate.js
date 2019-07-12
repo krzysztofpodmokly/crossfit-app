@@ -17,11 +17,19 @@ class TrainingCreate extends React.Component {
         description: '',
         img: '',
         warmup: [],
+        forweight: [],
+        metcon: [],
+        gymnastics: [],
+        extra: [],
         formErrors: {
             title: '',
             description: '',
             img: '',
-            warmup: []
+            warmup: [],
+            forweight: [],
+            metcon: [],
+            gymnastics: [],
+            extra: []
         }
     }
 
@@ -65,7 +73,8 @@ class TrainingCreate extends React.Component {
         )
     }
 
-    handleInputContentChange = (e, index) => {
+    // DRY! INPUT CHANGE =>
+    handleInputChangeWarmUp = (e, index) => {
         this.state.warmup[index] = e.target.value; // To be improved!
         
         // let warmup = [ ...this.state.warmup];
@@ -80,21 +89,98 @@ class TrainingCreate extends React.Component {
         })
     }
 
-    handleAddInput = (e) => {
+    handleInputChangeForWeight = (e, index) => {
+        this.state.forweight[index] = e.target.value;
+        this.setState({
+            forweight: this.state.forweight
+        })
+    }
+    handleInputChangeMetcon = (e, index) => {
+        this.state.metcon[index] = e.target.value;
+        this.setState({
+            metcon: this.state.metcon
+        })
+    }
+    handleInputChangeGymnastics = (e, index) => {
+        this.state.gymnastics[index] = e.target.value;
+        this.setState({
+            gymnastics: this.state.gymnastics
+        })
+    }
+    handleInputChangeExtra = (e, index) => {
+        this.state.extra[index] = e.target.value;
+        this.setState({
+            extra: this.state.extra
+        })
+    }
+    // <= DRY! INPUT CHANGE
+
+    // DRY! ADD INPUT =>
+    handleAddInputWarmUp = (e) => {
         e.preventDefault();
         this.setState({
             warmup: [...this.state.warmup, ""]
         })
     }
+    handleAddInputForWeight = (e) => {
+        e.preventDefault();
+        this.setState({
+            forweight: [...this.state.forweight, ""]
+        })
+    }
+    handleAddInputMetcon = (e) => {
+        e.preventDefault();
+        this.setState({
+            metcon: [...this.state.metcon, ""]
+        })
+    }
+    handleAddInputGymnastics = (e) => {
+        e.preventDefault();
+        this.setState({
+            gymnastics: [...this.state.gymnastics, ""]
+        })
+    }
+    handleAddInputExtra = (e) => {
+        e.preventDefault();
+        this.setState({
+            extra: [...this.state.extra, ""]
+        })
+    }
+    // <= DRY! ADD INPUT
     
-    handleInputRemove = (index) => {
+    // DRY! BUTTON REMOVE => 
+    handleInputRemoveWarmUp = (index) => {
         this.state.warmup.splice(index, 1); // remove input from the array
         this.setState({
             warmup: this.state.warmup
         })
     }
+    handleInputRemoveForWeight = (index) => {
+        this.state.forweight.splice(index, 1); // remove input from the array
+        this.setState({
+            forweight: this.state.forweight
+        })
+    }
+    handleInputRemoveMetcon = (index) => {
+        this.state.metcon.splice(index, 1); // remove input from the array
+        this.setState({
+            metcon: this.state.metcon
+        })
+    }
+    handleInputRemoveGymnastics = (index) => {
+        this.state.gymnastics.splice(index, 1); // remove input from the array
+        this.setState({
+            gymnastics: this.state.gymnastics
+        })
+    }
+    handleInputRemoveExtra = (index) => {
+        this.state.extra.splice(index, 1); // remove input from the array
+        this.setState({
+            extra: this.state.extra
+        })
+    }
 
-    
+    // <= DRY! BUTTON REMOVE
 
     validateForm = formErrors => {
         let valid = true;
@@ -111,11 +197,19 @@ class TrainingCreate extends React.Component {
         if (this.validateForm(this.state.formErrors) && this.state.title !== "" && this.state.img !== "" && this.state.description !== "") {
             console.log('Form valid');
             this.props.createTraining(this.state);
-            // this.props.history.push('/'); // redirect to dashboard after new training is submitted
+            console.log('STATE WITH TRAININGS => ', this.state);
+            this.props.history.push('/'); // redirect to dashboard after new training is submitted
         } else {
             console.log('Invalid Form')
         }
+    }
 
+    handleStateArrays = (obj) => {
+        const separateArray = [];
+        Object.values(obj).forEach(key => {
+            return Array.isArray(key) ? separateArray.push(key) : null;
+        });
+        return separateArray;
     }
 
     render() {
@@ -123,6 +217,11 @@ class TrainingCreate extends React.Component {
         const { auth } = this.props;
         if (!auth.uid) return <Redirect to="/signin" />;
 
+        console.log(this.handleStateArrays(this.state));
+        
+
+
+        // DRY ! RENDERING LISTS => 
         // Rendering WarmUp list 
         const warmUpList = this.state.warmup.map((warmup, index) => {
             return (
@@ -130,11 +229,61 @@ class TrainingCreate extends React.Component {
                     key={index}
                     warmup={warmup}
                     index={index}
-                    handleInputContentChange={this.handleInputContentChange}
-                    handleInputRemove={this.handleInputRemove}
+                    handleInputContentChange={this.handleInputChangeWarmUp}
+                    handleInputRemove={this.handleInputRemoveWarmUp}
                 />
             )
         });
+
+        const forWeightList = this.state.forweight.map((forweight, index) => {
+            return (
+                <ForWeight 
+                    key={index}
+                    forweight={forweight}
+                    index={index}
+                    handleInputContentChange={this.handleInputChangeForWeight}
+                    handleInputRemove={this.handleInputRemoveForWeight}
+                />
+            )
+        });
+
+        const metconList = this.state.metcon.map((metcon, index) => {
+            return (
+                <Metcon
+                    key={index}
+                    metcon={metcon}
+                    index={index}
+                    handleInputContentChange={this.handleInputChangeMetcon}
+                    handleInputRemove={this.handleInputRemoveMetcon}
+                />
+            )
+        });
+
+        const gymnasticsList = this.state.gymnastics.map((gymnastics, index) => {
+            return (
+                <Gymnastics 
+                    key={index}
+                    gymnastics={gymnastics}
+                    index={index}
+                    handleInputContentChange={this.handleInputChangeGymnastics}
+                    handleInputRemove={this.handleInputRemoveGymnastics}
+                />
+            )
+        });
+
+        const extraList = this.state.extra.map((extra, index) => {
+            return (
+                <Extra 
+                    key={index}
+                    extra={extra}
+                    index={index}
+                    handleInputContentChange={this.handleInputChangeExtra}
+                    handleInputRemove={this.handleInputRemoveExtra}
+                />
+            )
+        });
+
+        // <= DRY ! RENDERING LISTS
 
         return (
             <div className="container">
@@ -155,18 +304,53 @@ class TrainingCreate extends React.Component {
                         <textarea className="materialize-textarea" id="description" onChange={this.handleInputChange} noValidate />
                         {formErrors.description.length > 0 && <span className="red-text">{formErrors.description}</span>}
                     </div>
-                    { warmUpList }
+
                     <div className="row">
-                        <div className="col s12 m3">
+                        <div className="col s12 m6">
+                            <h5>Warm Up</h5>
+                            { warmUpList }
                             <div className="input-field">
-                                <button onClick={this.handleAddInput} className="btn lighten-1 waves-effect waves-light">Add Input Field</button>
+                                <button onClick={this.handleAddInputWarmUp} className="btn lighten-1 waves-effect waves-light">Add Warmup</button>
                             </div>
                         </div>
-                        <div className="col s12 m3">
+                        <div className="col s12 m6">
+                            <h5>For Weight</h5>
+                            { forWeightList }
                             <div className="input-field">
-                                <button className="btn red lighten-1 waves-effect waves-light">Create Training</button>
+                                <button onClick={this.handleAddInputForWeight} className="btn lighten-1 waves-effect waves-light">Add For Weight</button>
                             </div>
                         </div>
+                    </div>
+
+                    <div className="row">
+                        <div className="col s12 m6">
+                            <h5>Metcon</h5>
+                            { metconList }
+                            <div className="input-field">
+                                <button onClick={this.handleAddInputMetcon} className="btn lighten-1 waves-effect waves-light">Add Metcon</button>
+                            </div>
+                        </div>
+                        <div className="col s12 m6">
+                            <h5>Gymnastics</h5>
+                            { gymnasticsList }
+                            <div className="input-field">
+                                <button onClick={this.handleAddInputGymnastics} className="btn lighten-1 waves-effect waves-light">Add Gymnastics</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className="col s12 m6">
+                            <h5>Extra</h5>
+                            { extraList }
+                            <div className="input-field">
+                                <button onClick={this.handleAddInputExtra} className="btn lighten-1 waves-effect waves-light">Add Extra</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="input-field center-align">
+                        <button className="btn-large red lighten-1 waves-effect waves-light">Create Training</button>
                     </div>
                 </form>
             </div>

@@ -10,11 +10,32 @@ const TrainingDetails = ({ training, auth }) => {
     if (!auth.uid) return <Redirect to="/signin" />
 
     if (training) {
-        const trainingItems = training.warmup.map((item, index) => {
+        const warmupList = training.warmup.map((item, index) => {
             return (
                 <li className="collection-item" key={index}>{item}</li>
             )
         })
+        const forweightList = training.forweight.map((item, index) => {
+            return (
+                <li className="collection-item" key={index}>{item}</li>
+            )
+        })
+        const metconList = training.metcon.map((item, index) => {
+            return (
+                <li className="collection-item" key={index}>{item}</li>
+            )
+        })
+        const gymnasticsList = training.gymnastics.map((item, index) => {
+            return (
+                <li className="collection-item" key={index}>{item}</li>
+            )
+        })
+        const extraList = training.extra.map((item, index) => {
+            return (
+                <li className="collection-item" key={index}>{item}</li>
+            )
+        })
+
         return (
             <div className="row">
                 <div className="col s12">
@@ -22,8 +43,35 @@ const TrainingDetails = ({ training, auth }) => {
                         <div className="card">
                             <div className="card-content">
                                 <span className="card-title">{training.title}</span>
-                                <ul className="collection">
-                                    {trainingItems}
+                                <ul className="collection with-header">
+                                    <li className="collection-header">
+                                        <h4>WarmUp</h4>
+                                    </li>
+                                    {warmupList}
+                                </ul>
+                                <ul className="collection with-header">
+                                    <li className="collection-header">
+                                        <h4>For Weight</h4>
+                                    </li>
+                                    {forweightList}
+                                </ul>
+                                <ul className="collection with-header">
+                                    <li className="collection-header">
+                                        <h4>Metcon</h4>
+                                    </li>
+                                    {metconList}
+                                </ul>
+                                <ul className="collection with-header">
+                                    <li className="collection-header">
+                                        <h4>Gymnastics</h4>
+                                    </li>
+                                    {gymnasticsList}
+                                </ul>
+                                <ul className="collection with-header">
+                                    <li className="collection-header">
+                                        <h4>Extra</h4>
+                                    </li>
+                                    {extraList}
                                 </ul>
                             </div>
                             <div className="card-action grey lighten-4 grey-text">
