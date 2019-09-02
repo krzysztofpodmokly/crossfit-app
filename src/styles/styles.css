@@ -6,6 +6,9 @@
     margin-top: 1rem;
 }
  */
+html {
+    height: 100%;
+}
 
 body {
     min-height: 100%;
@@ -13,14 +16,10 @@ body {
     margin: 0;
     padding: 0;
     font-family: sans-serif;
-    background-image: linear-gradient(
-        to right bottom,
-        rgba(97, 97, 97, .6), 
-        rgba(97, 97, 97, .2)),
-        url('https://images.unsplash.com/photo-1517757814062-2a2c761218f8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=635&q=80');
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-position: cover;
+    background-image: url('https://images.unsplash.com/photo-1517757814062-2a2c761218f8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=635&q=80');
+    /* background-repeat: no-repeat; */
+    /* background-size: 100%; */
+    background-position: center;
 }
 
 form {
@@ -28,7 +27,8 @@ form {
     margin-top: 20px;
 }
 
-form button, form h5 {
+form button,
+form h5 {
     margin: 20px 0;
 }
 
@@ -39,16 +39,16 @@ form button, form h5 {
 input[type=text]:not(.browser-default):focus:not([readonly]),
 input[type=email]:not(.browser-default):focus:not([readonly]),
 input[type=password]:not(.browser-default):focus:not([readonly]),
-textarea.materialize-textarea:focus:not([readonly]){
-  border-color: #ef5350;
-  box-shadow: none;
+textarea.materialize-textarea:focus:not([readonly]) {
+    border-color: #ef5350;
+    box-shadow: none;
 }
 
-input[type=text]:not(.browser-default):focus:not([readonly]) + label,
-textarea.materialize-textarea:focus:not([readonly]) + label,
-input[type=email]:not(.browser-default):focus:not([readonly]) + label,
-input[type=password]:not(.browser-default):focus:not([readonly]) + label{
-  color: #ef5350 !important;
+input[type=text]:not(.browser-default):focus:not([readonly])+label,
+textarea.materialize-textarea:focus:not([readonly])+label,
+input[type=email]:not(.browser-default):focus:not([readonly])+label,
+input[type=password]:not(.browser-default):focus:not([readonly])+label {
+    color: #ef5350 !important;
 }
 
 /* SPINNER */
