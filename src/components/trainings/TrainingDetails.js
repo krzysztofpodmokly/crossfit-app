@@ -116,3 +116,4 @@ export default compose(
   connect(mapStateToProps),
   firestoreConnect([{ collection: 'trainings' }])
 )(TrainingDetails);
+

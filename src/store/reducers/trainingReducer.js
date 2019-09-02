@@ -12,3 +12,4 @@ const trainingReducer = (state = [], action) => {
 };
 
 export default trainingReducer;
+

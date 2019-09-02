@@ -20,7 +20,21 @@ exports.trainingCreated = functions.region('europe-west1').firestore
         }
 
         return createNotification(notification);
-    });
+});
+
+
+exports.trainingDelete = functions.region('europe-west1').firestore
+    .document('trainings/{trainingId}')
+    .onDelete(doc => {
+        const training = doc.data();
+        const notification = {
+            content: 'Training deleted',
+            user: `${training.authorFirstName} ${training.authorLastName}`,
+            time: admin.firestore.FieldValue.serverTimestamp() 
+        }
+
+        return createNotification(notification);
+    })
 
 // Trigger => new user was registered in the database
 exports.userJoined = functions.region('europe-west1').auth.user()
