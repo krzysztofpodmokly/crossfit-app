@@ -9,20 +9,20 @@ import SignUp from './auth/SignUp';
 import '../styles/styles.css';
 
 class App extends React.Component {
-    render() {
-        return (
-            <BrowserRouter>
-                <Navbar/>
-                <Switch>
-                    <Route path="/" exact component={Dashboard} />
-                    <Route path="/create" component={TrainingCreate} />
-                    <Route path="/training/:id" component={TrainingDetails} />
-                    <Route path="/signin" component={SignIn} />
-                    <Route path="/signup" component={SignUp} />
-                </Switch>
-            </BrowserRouter>
-        )
-    }
+  render() {
+    return (
+      <BrowserRouter>
+        <Navbar />
+        <Switch>
+          <Route path='/' exact component={Dashboard} />
+          <Route path='/create' component={TrainingCreate} />
+          <Route path='/training/:id' component={TrainingDetails} />
+          <Route path='/signin' component={SignIn} />
+          <Route path='/signup' component={SignUp} />
+        </Switch>
+      </BrowserRouter>
+    );
+  }
 }
 
 export default App;
