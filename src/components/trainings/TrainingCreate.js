@@ -228,8 +228,6 @@ class TrainingCreate extends React.Component {
     const { auth } = this.props;
     if (!auth.uid) return <Redirect to='/signin' />;
 
-    console.log(this.handleStateArrays(this.state));
-
     // DRY ! RENDERING LISTS =>
     // Rendering WarmUp list
     const warmUpList = this.state.warmup.map((warmup, index) => {
@@ -344,7 +342,7 @@ class TrainingCreate extends React.Component {
               <div className='input-field'>
                 <button
                   onClick={this.handleAddInputWarmUp}
-                  className='btn lighten-1 waves-effect waves-light'
+                  className='btn-add btn lighten-1 waves-effect waves-light'
                 >
                   Add Warmup
                 </button>
@@ -356,7 +354,7 @@ class TrainingCreate extends React.Component {
               <div className='input-field'>
                 <button
                   onClick={this.handleAddInputForWeight}
-                  className='btn lighten-1 waves-effect waves-light'
+                  className='btn-add btn lighten-1 waves-effect waves-light'
                 >
                   Add For Weight
                 </button>
@@ -371,7 +369,7 @@ class TrainingCreate extends React.Component {
               <div className='input-field'>
                 <button
                   onClick={this.handleAddInputMetcon}
-                  className='btn lighten-1 waves-effect waves-light'
+                  className='btn-add btn lighten-1 waves-effect waves-light'
                 >
                   Add Metcon
                 </button>
@@ -383,7 +381,7 @@ class TrainingCreate extends React.Component {
               <div className='input-field'>
                 <button
                   onClick={this.handleAddInputGymnastics}
-                  className='btn lighten-1 waves-effect waves-light'
+                  className='btn-add btn lighten-1 waves-effect waves-light'
                 >
                   Add Gymnastics
                 </button>
@@ -398,7 +396,7 @@ class TrainingCreate extends React.Component {
               <div className='input-field'>
                 <button
                   onClick={this.handleAddInputExtra}
-                  className='btn lighten-1 waves-effect waves-light'
+                  className='btn-add btn lighten-1 waves-effect waves-light'
                 >
                   Add Extra
                 </button>

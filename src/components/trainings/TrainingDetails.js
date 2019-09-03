@@ -51,34 +51,34 @@ const TrainingDetails = ({ training, auth }) => {
           <div className='project-details container section'>
             <div className='card'>
               <div className='card-content'>
-                <span className='card-title'>{training.title}</span>
+                <span className='card-title top-header'>{training.title}</span>
                 <ul className='collection with-header'>
                   <li className='collection-header'>
-                    <h4>WarmUp</h4>
+                    <h5 className='training-header'>Warm Up</h5>
                   </li>
                   {warmupList}
                 </ul>
                 <ul className='collection with-header'>
                   <li className='collection-header'>
-                    <h4>For Weight</h4>
+                    <h5 className='training-header'>For Weight</h5>
                   </li>
                   {forweightList}
                 </ul>
                 <ul className='collection with-header'>
                   <li className='collection-header'>
-                    <h4>Metcon</h4>
+                    <h5 className='training-header'>Metcon</h5>
                   </li>
                   {metconList}
                 </ul>
                 <ul className='collection with-header'>
                   <li className='collection-header'>
-                    <h4>Gymnastics</h4>
+                    <h5 className='training-header'>Gymnastics</h5>
                   </li>
                   {gymnasticsList}
                 </ul>
                 <ul className='collection with-header'>
                   <li className='collection-header'>
-                    <h4>Extra</h4>
+                    <h5 className='training-header'>Extra</h5>
                   </li>
                   {extraList}
                 </ul>
@@ -116,4 +116,3 @@ export default compose(
   connect(mapStateToProps),
   firestoreConnect([{ collection: 'trainings' }])
 )(TrainingDetails);
-
