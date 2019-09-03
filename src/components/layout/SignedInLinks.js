@@ -6,22 +6,41 @@ import { compose } from 'redux';
 import { signOut } from '../../store/actions/authActions';
 
 const SignedInLinks = ({ signOut, firebase, profile }) => {
-    return (
-        <ul className="right">
-            <li><NavLink to="/create" className="">New Training</NavLink></li>
-            <li><NavLink to="/" className="waves-effect waves-light btn" onClick={() => signOut(firebase)}>Log Out</NavLink></li>
-            <li><NavLink to="/" className="btn btn-floating red lighten-1">{profile.initials}</NavLink></li>
-        </ul>
-    )
-}
+  return (
+    <ul className='right'>
+      <li>
+        <NavLink to='/create' className=''>
+          New Training
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to='/'
+          className='waves-effect waves-light btn'
+          onClick={() => signOut(firebase)}
+        >
+          Log Out
+        </NavLink>
+      </li>
+      <li className='hide-on-small-only'>
+        <NavLink to='/' className='btn btn-floating red lighten-1'>
+          {profile.initials}
+        </NavLink>
+      </li>
+    </ul>
+  );
+};
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        signOut: (firebase) => dispatch(signOut(firebase))
-    }
-}
+const mapDispatchToProps = dispatch => {
+  return {
+    signOut: firebase => dispatch(signOut(firebase))
+  };
+};
 
 export default compose(
-    firebaseConnect(),
-    connect(null, mapDispatchToProps)
+  firebaseConnect(),
+  connect(
+    null,
+    mapDispatchToProps
+  )
 )(SignedInLinks);
