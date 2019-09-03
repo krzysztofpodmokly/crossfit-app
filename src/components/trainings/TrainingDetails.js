@@ -48,7 +48,7 @@ const TrainingDetails = ({ training, auth }) => {
     return (
       <div className='row'>
         <div className='col s12'>
-          <div className='project-details container section'>
+          <div className='project-details container section custom-position'>
             <div className='card'>
               <div className='card-content'>
                 <span className='card-title top-header'>{training.title}</span>
