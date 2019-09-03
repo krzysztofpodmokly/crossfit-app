@@ -32,7 +32,7 @@ class SignUp extends React.Component {
     if (auth.uid) return <Redirect to='/' />;
 
     return (
-      <div className='container'>
+      <div className='container custom-position'>
         <form onSubmit={this.onFormSubmit} className='white'>
           <h5 className='grey-text text-darken-2'>Register Account</h5>
           <div className='input-field'>

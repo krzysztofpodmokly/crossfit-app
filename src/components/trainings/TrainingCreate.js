@@ -293,7 +293,7 @@ class TrainingCreate extends React.Component {
     // <= DRY ! RENDERING LISTS
 
     return (
-      <div className='container'>
+      <div className='container custom-position'>
         <form onSubmit={this.onFormSubmit} className='white' noValidate>
           <h5 className='grey-text text-darken-2'>Create Training</h5>
           <div className='input-field'>
