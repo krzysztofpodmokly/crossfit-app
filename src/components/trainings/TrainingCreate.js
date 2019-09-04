@@ -335,7 +335,7 @@ class TrainingCreate extends React.Component {
             )}
           </div>
 
-          <div className='row'>
+          <div className='row flex-flow'>
             <div className='col s12 m6'>
               <h5>Warm Up</h5>
               {warmUpList}
@@ -362,7 +362,7 @@ class TrainingCreate extends React.Component {
             </div>
           </div>
 
-          <div className='row'>
+          <div className='row flex-flow'>
             <div className='col s12 m6'>
               <h5>Metcon</h5>
               {metconList}
@@ -389,7 +389,7 @@ class TrainingCreate extends React.Component {
             </div>
           </div>
 
-          <div className='row'>
+          <div className='row flex-flow'>
             <div className='col s12 m6'>
               <h5>Extra</h5>
               {extraList}
