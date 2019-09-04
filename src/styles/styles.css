@@ -46,10 +46,10 @@ textarea.materialize-textarea:focus:not([readonly]) {
   box-shadow: none;
 }
 
-input[type='text']:not(.browser-default):focus:not([readonly]) + label,
-textarea.materialize-textarea:focus:not([readonly]) + label,
-input[type='email']:not(.browser-default):focus:not([readonly]) + label,
-input[type='password']:not(.browser-default):focus:not([readonly]) + label {
+input[type='text']:not(.browser-default):focus:not([readonly])+label,
+textarea.materialize-textarea:focus:not([readonly])+label,
+input[type='email']:not(.browser-default):focus:not([readonly])+label,
+input[type='password']:not(.browser-default):focus:not([readonly])+label {
   color: #ef5350 !important;
 }
 
@@ -109,4 +109,11 @@ button.btn-add {
 
 .custom-position {
   margin: 0 auto;
+}
+
+@media (max-width: 600px) {
+  .row .col {
+    padding: 0;
+  }
+
 }
